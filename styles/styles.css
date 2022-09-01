@@ -83,6 +83,7 @@ input {
     color: whitesmoke;
     border: none;
     box-shadow: 3px 3px 5px darkgray;
+    margin-bottom: 1rem;
 }
 
 .register-btn:hover {
@@ -92,4 +93,8 @@ input {
 
 .register-btn:active {
     box-shadow: none;
+}
+
+li{
+    color: red;
 }
