@@ -1,22 +1,67 @@
-const registerBtn = document.querySelector(".register-btn"); 
+const registerBtn = document.querySelector(".register-btn");
 
 registerBtn.addEventListener("click", (e) => {
-  //prevenir el envío
-  e.preventDefault();
+  
+  //Mostrar errores antes de enviar
+  let errors = [];
 
   //Obtener datos ingresados
   const email = document.getElementById("email-input").value;
   const password = document.getElementById("password-input").value;
-  const legalAgeOptions = document.getElementsByName("legalAge")
-  let age = false;
-  legalAgeOptions.forEach(function(element){
-    if (element.checked==true){
+  
+  const legalAge = document.getElementsByName("legalAge")
+  let age;
+  legalAge.forEach(function (element) {
+    if (element.checked == true) {
       age = element.value;
-      console.log(age)
     }
   })
-});
 
+  let termsAndConditions = document.getElementById("tyc-input")
+  let termsAccepted = false
+  termsAndConditions.addEventListener('click', function(e){
+    termsAccepted = true;
+  })
+
+  //Validar email
+  if(email==""){
+    errors.push("Ingresa tu correo")
+  }
+  
+  //Validar password
+  if(password==""){
+    errors.push("Ingresa una contraseña")
+  }else if(password.length<3){
+    errors.push("La contraseña debe contener al menos 3 caracteres")
+  }
+
+  //Validar edad
+  if(age==""){
+    errors.push("Responde si eres mayor de edad")
+  }
+
+  //Validar edad
+  if(age==null){
+    errors.push("Responde si eres mayor de edad")
+  }
+
+  //Validar términos y condiciones
+  if(termsAccepted==false){
+    errors.push("No aceptaste los términos y condiciones")
+  }
+
+  //Prevenir el envío si hay errores
+  if(errors.length>0){
+    e.preventDefault();
+    let formContainer = document.getElementById("registerForm")
+    let errorBox = document.createElement("div")
+    let errorContent = document.createTextNode(`${errors}`)
+    errorBox.appendChild(errorContent)
+    formContainer.appendChild(errorBox)
+  }
+ 
+
+})
 
   // Escribe tu código aquí, siguiendo los siguientes lineamientos paso a paso:
   // 1. Obtenemos el valor ingresado en el input de email
